@@ -1,0 +1,23 @@
+@startuml
+class Motor{
+- nome: String
+- preco: int
+}
+
+class Carro{
+- nome: String
+}
+
+
+enum TipoMotor {
+- MOTOR_CAMINHAO: int
+- MOTOR_MOTO: int
+- MOTOR_GT: int
+}
+
+'relacionamentos'
+Motor "*" --> "1" Carro
+Carro "1" --> "1" TipoMotor
+
+
+@enduml

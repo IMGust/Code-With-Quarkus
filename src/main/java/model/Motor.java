@@ -10,31 +10,34 @@ public class Motor extends DefaultEntity {
     private String nome;
 
     @Column(name = "preco")
-    private int preco;
+    private double preco;
 
-    private TipoMotor tipomotor;
+    @ManyToOne
+    @JoinColumn(name = "id_carro")
+    private Carro carro;
 
-    public String getNome(){
+    public Carro getCarro() {
+        return carro;
+    }
+
+    public void setCarro(Carro carro) {
+        this.carro = carro;
+    }
+
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome){
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public int getPreco(){
+    public double getPreco() {
         return preco;
     }
 
-    public void setPreco(int preco){
+    public void setPreco(double preco) {
         this.preco = preco;
     }
-
-    public TipoMotor getTipomotor() {
-        return tipomotor;
-    }
-
-    public void setTipomotor(TipoMotor tipomotor) {
-        this.tipomotor = tipomotor;
-    }
 }
+

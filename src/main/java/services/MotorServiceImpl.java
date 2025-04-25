@@ -6,10 +6,9 @@ import jakarta.inject.Inject;
 import dto.DtoRequest;
 import dto.DtoResponse;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.core.Response;
+import model.Carro;
 import model.Motor;
-import model.TipoMotor;
+import repository.CarroRepository;
 import repository.MotorRepository;
 
 import java.util.List;
@@ -17,6 +16,8 @@ import java.util.List;
 public class MotorServiceImpl implements MotorContract {
     @Inject
     MotorRepository repository;
+    @Inject
+    CarroRepository carroRepository;
 
     @Override
     @Transactional
@@ -24,20 +25,31 @@ public class MotorServiceImpl implements MotorContract {
         Motor motor = new Motor();
         motor.setNome(dto.nome());
         motor.setPreco(dto.preco());
-        motor.setTipomotor(TipoMotor.valueof(dto.idmotor()));
+
+        //Busca ID
+        Carro carro = carroRepository.findById(dto.idCarro());
+        motor.setCarro(carro);
+
+        //pesistência
 
         repository.persist(motor);
         return DtoResponse.valueof(motor);
     }
 
     @Override
+    @Transactional
     public void update(long id, DtoRequest dto){
         Motor motor = repository.findById(id);
         motor.setNome(dto.nome());
         motor.setPreco(dto.preco());
-        motor.setTipomotor(TipoMotor.valueof(dto.idmotor()));
+
+        //Busca id
+        Carro carro = carroRepository.findById(dto.idCarro());
+        motor.setCarro(carro);
+
     }
     @Override
+    @Transactional
     public void delete(long id){
         repository.deleteById(id);
 
@@ -46,21 +58,16 @@ public class MotorServiceImpl implements MotorContract {
     public List<DtoResponse> exibirTodos(){
         return repository.findAll().stream().map(e -> DtoResponse.valueof(e)).toList();
     }
-    @Override
-    public List<Motor> buscarNome(String nome){
-        return repository.find("LOWER(nome) LIKE LOWER(?1)", "%" + nome + "%").list();
 
+    @Override
+    public List<DtoResponse> buscarNome(){
+    return repository.findAll().stream().map(e -> DtoResponse.valueof(e)).toList();
     }
 
     @Override
-    public Response buscarTipo(@PathParam("id") int id) {
-        try {
-            TipoMotor motor = TipoMotor.valueof(id);
-            return Response.ok(motor).build();
-        } catch (IllegalArgumentException e) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Status com id " + id + " não encontrado")
-                    .build();
-        }
+    public List<DtoResponse> buscarCarro( Long idCarro){
+        return repository.findByCar(idCarro).stream().map(e -> DtoResponse.valueof(e)).toList();
     }
+
+
 }

@@ -4,22 +4,26 @@ import dto.DtoCarroRequest;
 import dto.DtoCarroResponse;
 import dto.DtoRequest;
 import dto.DtoResponse;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Response;
 import model.Carro;
 import model.Motor;
+import model.TipoMotor;
 
 import java.util.List;
 
 public interface CarroContract {
     //POST
-    public DtoCarroResponse incluir(DtoCarroRequest dto);
+     DtoCarroResponse incluir(DtoCarroRequest dto);
     //PUT
-    public void update( long id, DtoCarroRequest dto);
+     void update( long id, DtoCarroRequest dto);
     //DELETE
-    public void delete(long id);
+     void delete(long id);
     //GET
-    public List<DtoCarroResponse> exibirTodos();
+     List<DtoCarroResponse> exibirTodos();
     //GET adicional
-    public List<Carro> buscarNome(String nome);
+    List<DtoCarroResponse> buscarNome(String nome);
+
 
 
 }

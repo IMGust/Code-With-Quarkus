@@ -5,15 +5,15 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import model.Motor;
 import jakarta.ws.rs.core.Response;
 import services.MotorServiceImpl;
-import java.util.List;
 
-@Path("/motor")
+@Path("motor")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MotorResource {
+
+
     @Inject
     MotorServiceImpl service;
 
@@ -24,7 +24,7 @@ public class MotorResource {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("{id}")
     @Transactional
     public Response update(long id, DtoRequest dto) {
         service.update(id, dto);
@@ -33,7 +33,8 @@ public class MotorResource {
 
     @DELETE
     @Transactional
-    public Response delete(long id) {
+    @Path("{id}")
+    public Response delete(@PathParam("id") long id) {
         service.delete(id);
         return Response.noContent().build();
     }
@@ -45,16 +46,15 @@ public class MotorResource {
 
 
     @GET
-    @Path("/BuscaNome")
-    public List<Motor> buscarNome(String nome) {
-        return service.buscarNome(nome);
+    @Path("/nome/{nome}")
+    public Response buscarNome(String nome){
+       return  Response.ok().entity(service.buscarNome()).build();
     }
 
     @GET
-    @Path("/{id}")
-    public Response buscarTipo(@PathParam("id") int id) {
-      return service.buscarTipo(id);
+    @Path("/carro/{id}")
+    public Response buscarCarro(Long id){
+        return Response.status(Response.Status.OK).entity(service.buscarCarro(id)).build();
     }
-
 
 }

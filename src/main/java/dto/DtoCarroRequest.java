@@ -1,4 +1,4 @@
 package dto;
 
-public record DtoCarroRequest(String nome, Integer id_motor) {
+public record DtoCarroRequest(String nome, Integer idMotor, long idchassi) {
 }

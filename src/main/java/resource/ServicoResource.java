@@ -1,25 +1,27 @@
 package resource;
 
-import dto.DtoCarroRequest;
+
+
+import dto.DtoServico;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import services.CarroServiceImpl;
+import services.ServicoServiceImpl;
 
-
-@Path("carro")
+@Path("servico")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class CarroResource {
+public class ServicoResource {
 
-@Inject
-CarroServiceImpl service;
+    @Inject
+    ServicoServiceImpl service;
+
 
     @POST
     @Transactional
-    public Response incluir(DtoCarroRequest dto) {
+    public Response incluir(DtoServico dto) {
         return Response.ok().entity(service.incluir(dto)).build();
     }
 
@@ -27,7 +29,7 @@ CarroServiceImpl service;
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response update( long id, DtoCarroRequest dto){
+    public Response update( long id, DtoServico dto){
         service.update(id, dto);
         return Response.noContent().build();
     }
@@ -47,10 +49,5 @@ CarroServiceImpl service;
     }
 
 
-    @GET
-    @Path("/nome/{nome}")
-    public Response buscarNome(String nome){
-        return Response.status(Response.Status.OK).entity(service.buscarNome(nome)).build();
-    }
 
 }

@@ -1,25 +1,26 @@
 package resource;
 
-import dto.DtoCarroRequest;
+import dto.DtoOficina;
+import dto.DtoOficinaResponse;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import services.CarroServiceImpl;
+import services.OficinaServiceImpl;
 
 
-@Path("carro")
+@Path("oficina")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class CarroResource {
+public class OficinaResource {
 
-@Inject
-CarroServiceImpl service;
+    @Inject
+    OficinaServiceImpl service;
 
     @POST
     @Transactional
-    public Response incluir(DtoCarroRequest dto) {
+    public Response incluir(DtoOficina dto) {
         return Response.ok().entity(service.incluir(dto)).build();
     }
 
@@ -27,7 +28,7 @@ CarroServiceImpl service;
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response update( long id, DtoCarroRequest dto){
+    public Response update( Long id, DtoOficina dto){
         service.update(id, dto);
         return Response.noContent().build();
     }
@@ -36,21 +37,20 @@ CarroServiceImpl service;
     @DELETE
     @Path("/{id}")
     @Transactional
-    public Response delete(long id) {
+    public Response delete(Long id) {
         service.delete(id);
         return Response.noContent().build();
     }
 
     @GET
     public Response exibirTodos(){
-        return Response.status(Response.Status.OK).entity(service.exibirTodos()).build();
+        return Response.status(Response.Status.OK).entity(service.exibirTodos()).
+                build();
     }
-
 
     @GET
-    @Path("/nome/{nome}")
-    public Response buscarNome(String nome){
-        return Response.status(Response.Status.OK).entity(service.buscarNome(nome)).build();
-    }
-
+    @Path("/{id}")
+    public Response buscarPorId(@PathParam("id") Long id){
+        return Response.status(Response.Status.OK).entity(service.buscarPorId(id)).build();
+        }
 }

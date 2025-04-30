@@ -14,7 +14,7 @@ public interface MotorContract {
     //GET
      List<DtoResponse> exibirTodos();
     //GET adicional
-     List<DtoResponse> buscarNome();
+     List<DtoResponse> buscarNome(String nome);
     //GET adicional
     List<DtoResponse> buscarCarro(Long idCarro);
 

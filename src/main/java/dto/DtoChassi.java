@@ -1,4 +1,4 @@
 package dto;
 
-public record DtoChassi(String numero, long idCarro) {
+public record DtoChassi(String numero) {
 }

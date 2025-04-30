@@ -5,61 +5,47 @@ import dto.DtoChassiResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import model.Carro;
 import model.Chassi;
 import repository.CarroRepository;
 import repository.ChassiRepository;
-
 import java.util.List;
 
 @ApplicationScoped
 public class ChassiServiceImpl implements ChassiContract {
+
     @Inject
     ChassiRepository repository;
 
     @Inject
     CarroRepository carroRepository;
 
-
     @Override
     @Transactional
-    public DtoChassiResponse incluir(DtoChassi dto){
+    public DtoChassiResponse incluir(DtoChassi dto) {
         Chassi chassi = new Chassi();
         chassi.setNumero(dto.numero());
-
-        //BuscaID
-        Carro carro = carroRepository.findById(dto.idCarro());
-        chassi.setCarro(carro);
-
-        //persistencia
         repository.persist(chassi);
+
         return DtoChassiResponse.valueof(chassi);
-
     }
-
 
     @Override
     @Transactional
-    public void update(long id, DtoChassi dto){
-        Chassi chassi = repository.findById( id);
+    public void update(long id, DtoChassi dto) {
+        Chassi chassi = repository.findById(id);
         chassi.setNumero(dto.numero());
 
-        //BuscaID
-        Carro carro = carroRepository.findById(dto.idCarro());
-        carro.setChassi(chassi);
-
-
     }
+
     @Override
-    public void delete(long id){
+    public void delete(long id) {
         repository.deleteById(id);
-
     }
 
-
-
     @Override
-    public List<DtoChassiResponse> exibirTodos(){
-        return repository.findAll().stream().map(e -> DtoChassiResponse.valueof(e)).toList();
+    public List<DtoChassiResponse> exibirTodos() {
+        return repository.findAll().stream()
+                .map(DtoChassiResponse::valueof)
+                .toList();
     }
 }

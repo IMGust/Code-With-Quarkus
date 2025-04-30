@@ -1,14 +1,12 @@
 package resource;
 
 import dto.DtoOficina;
-import dto.DtoOficinaResponse;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import services.OficinaServiceImpl;
-
 
 @Path("oficina")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -33,7 +31,6 @@ public class OficinaResource {
         return Response.noContent().build();
     }
 
-
     @DELETE
     @Path("/{id}")
     @Transactional
@@ -53,4 +50,23 @@ public class OficinaResource {
     public Response buscarPorId(@PathParam("id") Long id){
         return Response.status(Response.Status.OK).entity(service.buscarPorId(id)).build();
         }
+
+    @GET
+    @Path("/nome/{nome}")
+    public Response buscarNome(String nome){
+        return Response.status(Response.Status.OK).entity(service.buscarNome(nome)).build();
+    }
+
+    @GET
+    @Path("/nome/servico")
+    public Response buscarOficinaPorNomeDoServico(@QueryParam("nome") String nomeServico) {
+        if (nomeServico == null || nomeServico.isBlank()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Parâmetro 'nome' é obrigatório.")
+                    .build();
+        }
+
+        return Response.ok(service.buscarPorServico(nomeServico)).build();
+    }
+
 }

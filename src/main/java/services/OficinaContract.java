@@ -1,6 +1,7 @@
 package services;
 
 import dto.DtoOficina;
+import dto.DtoOficinaNome;
 import dto.DtoOficinaResponse;
 
 import java.util.List;
@@ -16,5 +17,11 @@ public interface OficinaContract {
     //GET
     List<DtoOficinaResponse> exibirTodos();
     //GET
-    public DtoOficinaResponse buscarPorId(Long id);
+    DtoOficinaResponse buscarPorId(Long id);
+
+    List<DtoOficinaResponse> buscarNome(String nome);
+
+    List<DtoOficinaNome> buscarPorServico(String nomeServico);
+
+
 }

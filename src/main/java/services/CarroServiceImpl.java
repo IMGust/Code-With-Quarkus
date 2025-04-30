@@ -14,7 +14,7 @@ import repository.ChassiRepository;
 import java.util.List;
 
 @ApplicationScoped
-public class CarroServiceImpl implements CarroContract{
+public class CarroServiceImpl implements CarroContract {
 
     @Inject
     CarroRepository carroRepository;
@@ -24,47 +24,49 @@ public class CarroServiceImpl implements CarroContract{
 
     @Override
     @Transactional
-    public DtoCarroResponse incluir(DtoCarroRequest dto){
+    public DtoCarroResponse incluir(DtoCarroRequest dto) {
         Carro carro = new Carro();
         carro.setNome(dto.nome());
         carro.setTipoMotor(TipoMotor.valueof(dto.idMotor()));
-            //busca ID
-        Chassi chassi = chassiRepository.findById(dto.idchassi());
-        chassi.setCarro(carro);
 
-        //pesistência
+        // Buscar chassi por ID
+        Chassi chassi = chassiRepository.findById(dto.chassiId());
+
+        carro.setChassi(chassi); // Associar o chassi ao carro
+
         carroRepository.persist(carro);
         return DtoCarroResponse.valueof(carro);
     }
 
-
     @Override
-    public void update(long id, DtoCarroRequest dto){
+    @Transactional
+    public void update(long id, DtoCarroRequest dto) {
         Carro carro = carroRepository.findById(id);
         carro.setNome(dto.nome());
         carro.setTipoMotor(TipoMotor.valueof(dto.idMotor()));
-        //busca id Chassi
-        Chassi chassi = chassiRepository.findById(dto.idchassi());
-        chassi.setCarro(carro);
+
+        // Buscar chassi por ID
+        Chassi chassi = chassiRepository.findById(dto.chassiId());
+        carro.setChassi(chassi);
     }
+
     @Override
-    public void delete(long id){
+    @Transactional
+    public void delete(long id) {
         carroRepository.deleteById(id);
-
-    }
-
-
-
-    @Override
-    public List<DtoCarroResponse> exibirTodos(){
-        return carroRepository.findAll().stream().map(e -> DtoCarroResponse.valueof(e)).toList();
     }
 
     @Override
-    public List<DtoCarroResponse> buscarNome(String nome){
-        return carroRepository.findAll().stream().map(e -> DtoCarroResponse.valueof(e)).toList();
-
+    public List<DtoCarroResponse> exibirTodos() {
+        return carroRepository.findAll().stream()
+                .map(DtoCarroResponse::valueof)
+                .toList();
     }
 
-
+    @Override
+    public List<DtoCarroResponse> buscarNome(String nome) {
+        return carroRepository.find("nome", nome).stream()
+                .map(DtoCarroResponse::valueof)
+                .toList();
+    }
 }

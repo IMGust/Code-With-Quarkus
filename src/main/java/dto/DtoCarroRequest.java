@@ -1,4 +1,6 @@
 package dto;
 
-public record DtoCarroRequest(String nome, Integer idMotor, long idchassi) {
+import model.Chassi;
+
+public record DtoCarroRequest(String nome, Integer idMotor, Long chassiId) {
 }

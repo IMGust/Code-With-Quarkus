@@ -60,8 +60,8 @@ public class MotorServiceImpl implements MotorContract {
     }
 
     @Override
-    public List<DtoResponse> buscarNome(){
-    return repository.findAll().stream().map(e -> DtoResponse.valueof(e)).toList();
+    public List<DtoResponse> buscarNome(String nome){
+    return repository.findByName(nome).stream().map(e -> DtoResponse.valueof(e)).toList();
     }
 
     @Override

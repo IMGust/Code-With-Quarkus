@@ -10,7 +10,7 @@ public class Carro extends DefaultEntity{
     private String nome;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "chassi_id", unique = true)
+    @JoinColumn(name = "chassi_id", referencedColumnName = "id")
     private Chassi chassi;
 
     private TipoMotor tipoMotor;

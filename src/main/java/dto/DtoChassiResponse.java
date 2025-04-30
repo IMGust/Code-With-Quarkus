@@ -2,12 +2,11 @@ package dto;
 
 import model.Chassi;
 
-public record DtoChassiResponse(long id, String numero, DtoCarroResponse carro) {
+public record DtoChassiResponse(long id, String numero) {
 
     public static DtoChassiResponse valueof(Chassi chassi){
-        if(chassi == null)return null;
-        return new DtoChassiResponse(chassi.getId(), chassi.getNumero(),
-                DtoCarroResponse.valueof(chassi.getCarro()));
+        if(chassi == null) return null;
+        return new DtoChassiResponse(chassi.getId(), chassi.getNumero());
     }
 
 }

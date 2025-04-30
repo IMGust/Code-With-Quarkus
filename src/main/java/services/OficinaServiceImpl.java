@@ -1,6 +1,8 @@
 package services;
 
+import dto.DtoCarroResponse;
 import dto.DtoOficina;
+import dto.DtoOficinaNome;
 import dto.DtoOficinaResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -31,12 +33,6 @@ public class OficinaServiceImpl implements OficinaContract {
 
         if(dto.servicosIds() != null && !dto.servicosIds().isEmpty()) {
             List<Servico> servicos = servicoRepository.list("id in ?1", dto.servicosIds());
-
-            // Atualiza ambos os lados do relacionamento
-            servicos.forEach(servico -> {
-                servico.getOficinas().add(oficina);
-            });
-
             oficina.setServicos(servicos);
         }
 
@@ -48,28 +44,16 @@ public class OficinaServiceImpl implements OficinaContract {
     @Transactional
     public void update(Long id, DtoOficina dto) {
         Oficina oficina = oficinaRepository.findById(id);
-        if(oficina == null) {
+        if (oficina == null) {
             throw new RuntimeException("Oficina não encontrada");
         }
 
         oficina.setNome(dto.nome());
         oficina.setEndereco(dto.endereco());
 
-        // Atualização dos serviços
-        if(dto.servicosIds() != null) {
-            List<Servico> novosServicos = servicoRepository.list("id in ?1", dto.servicosIds());
-
-            // Remove das oficinas antigas
-            oficina.getServicos().forEach(servico -> {
-                servico.getOficinas().remove(oficina);
-            });
-
-            // Adiciona aos novos
-            novosServicos.forEach(servico -> {
-                servico.getOficinas().add(oficina);
-            });
-
-            oficina.setServicos(novosServicos);
+        if (dto.servicosIds() != null) {
+            List<Servico> servicos = servicoRepository.list("id in ?1", dto.servicosIds());
+            oficina.setServicos(servicos);
         }
     }
 
@@ -77,13 +61,11 @@ public class OficinaServiceImpl implements OficinaContract {
     @Transactional
     public void delete(Long id) {
         Oficina oficina = oficinaRepository.findById(id);
-        if(oficina != null) {
-            // Remove a oficina de todos os serviços associados
-            oficina.getServicos().forEach(servico -> {
-                servico.getOficinas().remove(oficina);
-            });
+        if (oficina != null) {
             oficinaRepository.delete(oficina);
         }
+
+
     }
 
     @Override
@@ -97,5 +79,18 @@ public class OficinaServiceImpl implements OficinaContract {
     public DtoOficinaResponse buscarPorId(Long id) {
         Oficina oficina = oficinaRepository.findById(id);
         return DtoOficinaResponse.valueof(oficina);
+    }
+    @Override
+    public List<DtoOficinaResponse> buscarNome(String nome) {
+        return oficinaRepository.find("nome", nome).list().stream()
+                .map(DtoOficinaResponse::valueof)
+                .toList();
+    }
+    @Override
+    public List<DtoOficinaNome> buscarPorServico(String nomeServico) {
+        return oficinaRepository.buscarPorServico(nomeServico)
+                .stream()
+                .map(oficina -> new DtoOficinaNome(oficina.getNome()))
+                .toList();
     }
 }

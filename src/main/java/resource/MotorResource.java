@@ -48,7 +48,7 @@ public class MotorResource {
     @GET
     @Path("/nome/{nome}")
     public Response buscarNome(String nome){
-       return  Response.ok().entity(service.buscarNome()).build();
+       return  Response.ok().entity(service.buscarNome(nome)).build();
     }
 
     @GET

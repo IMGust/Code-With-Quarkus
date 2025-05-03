@@ -4,3 +4,8 @@
 -- insert into myentity (id, field) values(2, 'field-2');
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
+
+-- src/test/resources/import.sql
+-- Garante que o Chassi com ID 1 existe para os testes
+
+-- Adicione outros dados iniciais necessários para seus testes aqui

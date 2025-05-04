@@ -5,7 +5,6 @@ import org.acme.dto.DtoChassiResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.acme.dto.DtoResponseMotor;
 import org.acme.model.Chassi;
 import org.acme.repository.CarroRepository;
 import org.acme.repository.ChassiRepository;

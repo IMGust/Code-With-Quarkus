@@ -1,18 +1,12 @@
 package org.acme.resource;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.acme.dto.DtoCarroRequest;
 import org.acme.dto.DtoCarroResponse;
-import org.acme.dto.DtoOficina;
-import org.acme.dto.DtoRequestServico;
 import org.acme.repository.ChassiRepository;
 import org.acme.services.CarroServiceImpl;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;

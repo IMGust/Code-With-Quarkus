@@ -3,10 +3,10 @@ package org.acme.resource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import org.acme.dto.DtoOficina;
+import org.acme.dto.DtoOficinaRequest;
 import org.acme.dto.DtoOficinaNome;
 import org.acme.dto.DtoOficinaResponse;
-import org.acme.dto.DtoRequestServico;
+import org.acme.dto.DtoServicoRequest;
 import org.acme.services.OficinaServiceImpl;
 import org.acme.services.ServicoServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -29,19 +29,19 @@ public class OficinaResourceTest {
 
     @Test
     void testIncluir() {
-        DtoRequestServico servico1 = new DtoRequestServico("Troca de óleo");
+        DtoServicoRequest servico1 = new DtoServicoRequest("Troca de óleo");
         Long idServico1 = servicoService.incluir(servico1).id();
 
-        DtoRequestServico servico2 = new DtoRequestServico("Alinhamento de rodas");
+        DtoServicoRequest servico2 = new DtoServicoRequest("Alinhamento de rodas");
         Long idServico2 = servicoService.incluir(servico2).id();
 
-        DtoRequestServico servico3 = new DtoRequestServico("Troca de pneus");
+        DtoServicoRequest servico3 = new DtoServicoRequest("Troca de pneus");
         Long idServico3 = servicoService.incluir(servico3).id();
 
 
-        DtoOficina oficina = new DtoOficina(
+        DtoOficinaRequest oficina = new DtoOficinaRequest(
                 "oficinaguh",
-                "taquaralto",
+                "miami",
                 List.of(idServico1, idServico2, idServico3)
         );
 
@@ -54,7 +54,7 @@ public class OficinaResourceTest {
                 .body(
                         "id", notNullValue(),
                         "nome", is("oficinaguh"),
-                        "endereco", is("taquaralto"),
+                        "endereco", is("miami"),
                         "servicosIds[0]", is(idServico1.intValue()),
                         "servicosIds[1]", is(idServico2.intValue()),
                         "servicosIds[2]", is(idServico3.intValue())
@@ -65,17 +65,17 @@ public class OficinaResourceTest {
     @Test
     void testBuscarNome() {
 
-        DtoRequestServico servico1 = new DtoRequestServico("Serviço 1");
+        DtoServicoRequest servico1 = new DtoServicoRequest("Serviço 1");
         Long idServico1 = servicoService.incluir(servico1).id();
 
-        DtoRequestServico servico2 = new DtoRequestServico("Serviço 2");
+        DtoServicoRequest servico2 = new DtoServicoRequest("Serviço 2");
         Long idServico2 = servicoService.incluir(servico2).id();
 
-        DtoRequestServico servico3 = new DtoRequestServico("Serviço 3");
+        DtoServicoRequest servico3 = new DtoServicoRequest("Serviço 3");
         Long idServico3 = servicoService.incluir(servico3).id();
 
 
-        DtoOficina oficina = new DtoOficina(
+        DtoOficinaRequest oficina = new DtoOficinaRequest(
                 "oficinajanio",
                 "unitins",
                 List.of(idServico1, idServico2, idServico3)
@@ -99,16 +99,16 @@ public class OficinaResourceTest {
     @Test
     void testAlterar() {
 
-        DtoRequestServico servico1 = new DtoRequestServico("Serviço 1");
-        DtoRequestServico servico2 = new DtoRequestServico("Serviço 2");
-        DtoRequestServico servico3 = new DtoRequestServico("Serviço 3");
+        DtoServicoRequest servico1 = new DtoServicoRequest("Serviço 1");
+        DtoServicoRequest servico2 = new DtoServicoRequest("Serviço 2");
+        DtoServicoRequest servico3 = new DtoServicoRequest("Serviço 3");
 
         Long servicoId1 = servicoService.incluir(servico1).id();
         Long servicoId2 = servicoService.incluir(servico2).id();
         Long servicoId3 = servicoService.incluir(servico3).id();
 
 
-        DtoOficina oficina = new DtoOficina(
+        DtoOficinaRequest oficina = new DtoOficinaRequest(
                 "oficinabuh", // Nome
                 "bela_vista", // Endereço
                 List.of(servicoId1, servicoId2)
@@ -118,7 +118,7 @@ public class OficinaResourceTest {
         Long id = service.incluir(oficina).id();
 
 
-        DtoOficina oficinaAlterada = new DtoOficina(
+        DtoOficinaRequest oficinaAlterada = new DtoOficinaRequest(
                 "oficinaguh",
                 "taquaralto",
                 List.of(servicoId1, servicoId2, servicoId3)
@@ -144,11 +144,11 @@ public class OficinaResourceTest {
     @Test
     void testDelete() {
 
-        DtoRequestServico servico1 = new DtoRequestServico("Serviço 1");
-        DtoRequestServico servico2 = new DtoRequestServico("Serviço 2");
-        DtoRequestServico servico3 = new DtoRequestServico("Serviço 3");
-        DtoRequestServico servico4 = new DtoRequestServico("Serviço 4");
-        DtoRequestServico servico5 = new DtoRequestServico("Serviço 5");
+        DtoServicoRequest servico1 = new DtoServicoRequest("Serviço 1");
+        DtoServicoRequest servico2 = new DtoServicoRequest("Serviço 2");
+        DtoServicoRequest servico3 = new DtoServicoRequest("Serviço 3");
+        DtoServicoRequest servico4 = new DtoServicoRequest("Serviço 4");
+        DtoServicoRequest servico5 = new DtoServicoRequest("Serviço 5");
 
 
         Long servicoId1 = servicoService.incluir(servico1).id();
@@ -158,7 +158,7 @@ public class OficinaResourceTest {
         Long servicoId5 = servicoService.incluir(servico5).id();
 
 
-        DtoOficina oficina = new DtoOficina(
+        DtoOficinaRequest oficina = new DtoOficinaRequest(
                 "oficina_delete",
                 "falling",
                 List.of(servicoId1, servicoId2, servicoId4, servicoId5)
@@ -181,15 +181,15 @@ public class OficinaResourceTest {
     @Test
     void testBuscarPorId() {
 
-        DtoRequestServico servico1 = new DtoRequestServico("Serviço 1");
-        DtoRequestServico servico2 = new DtoRequestServico("Serviço 2");
+        DtoServicoRequest servico1 = new DtoServicoRequest("Serviço 1");
+        DtoServicoRequest servico2 = new DtoServicoRequest("Serviço 2");
 
 
         Long servicoId1 = servicoService.incluir(servico1).id();
         Long servicoId2 = servicoService.incluir(servico2).id();
 
 
-        DtoOficina oficina = new DtoOficina(
+        DtoOficinaRequest oficina = new DtoOficinaRequest(
                 "oficina_busca",
                 "centro",
                 List.of(servicoId1, servicoId2)
@@ -213,11 +213,11 @@ public class OficinaResourceTest {
     void testBuscarPorServico() {
 
         String nomeServico = "Troca de Óleo";
-        DtoRequestServico servico = new DtoRequestServico(nomeServico);
+        DtoServicoRequest servico = new DtoServicoRequest(nomeServico);
         Long servicoId = servicoService.incluir(servico).id();
 
-        DtoOficina oficina1 = new DtoOficina("Oficina A", "Centro", List.of(servicoId));
-        DtoOficina oficina2 = new DtoOficina("Oficina B", "Sul", List.of(servicoId));
+        DtoOficinaRequest oficina1 = new DtoOficinaRequest("Oficina A", "Centro", List.of(servicoId));
+        DtoOficinaRequest oficina2 = new DtoOficinaRequest("Oficina B", "Sul", List.of(servicoId));
         service.incluir(oficina1);
         service.incluir(oficina2);
 

@@ -55,7 +55,7 @@ public class CarroResourceTest {
         id = service.incluir(carroRequest).id();
 
         DtoCarroRequest carroAlterado = new DtoCarroRequest(
-                "Ford Shelby",
+                "Pontiac GTO",
                 "S++",
                 3,
                 1l
@@ -69,7 +69,7 @@ public class CarroResourceTest {
                 .statusCode(204);
 
         DtoCarroResponse response = service.findById(id);
-        assertThat(response.nome(), is("Ford Shelby"));
+        assertThat(response.nome(), is("Pontiac GTO"));
         assertThat(response.classificacao(), is("S++"));
     }
 

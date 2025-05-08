@@ -1,7 +1,7 @@
 package org.acme.services;
 
 
-import org.acme.dto.DtoOficina;
+import org.acme.dto.DtoOficinaRequest;
 import org.acme.dto.DtoOficinaNome;
 import org.acme.dto.DtoOficinaResponse;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -26,7 +26,7 @@ public class OficinaServiceImpl implements OficinaContract {
 
     @Override
     @Transactional
-    public DtoOficinaResponse incluir(DtoOficina dto) {
+    public DtoOficinaResponse incluir(DtoOficinaRequest dto) {
         Oficina oficina = new Oficina();
         oficina.setNome(dto.nome());
         oficina.setEndereco(dto.endereco());
@@ -42,7 +42,7 @@ public class OficinaServiceImpl implements OficinaContract {
 
     @Override
     @Transactional
-    public void update(Long id, DtoOficina dto) {
+    public void update(Long id, DtoOficinaRequest dto) {
         Oficina oficina = oficinaRepository.findById(id);
         if (oficina == null) {
             throw new RuntimeException("Oficina não encontrada");

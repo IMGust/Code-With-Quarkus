@@ -1,6 +1,6 @@
 package org.acme.resource;
 
-import org.acme.dto.DtoOficina;
+import org.acme.dto.DtoOficinaRequest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -18,7 +18,7 @@ public class OficinaResource {
 
     @POST
     @Transactional
-    public Response incluir(DtoOficina dto) {
+    public Response incluir(DtoOficinaRequest dto) {
        return Response.status(Response.Status.CREATED).entity(service.incluir(dto)).build();
     }
 
@@ -26,7 +26,7 @@ public class OficinaResource {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response update( Long id, DtoOficina dto){
+    public Response update( Long id, DtoOficinaRequest dto){
         service.update(id, dto);
         return Response.noContent().build();
     }

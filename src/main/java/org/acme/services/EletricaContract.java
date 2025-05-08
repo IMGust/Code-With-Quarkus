@@ -1,15 +1,15 @@
 package org.acme.services;
 
-import org.acme.dto.DtoPecaEletrica;
+import org.acme.dto.DtoEletricaRequest;
 import org.acme.dto.DtoEletricaResponse;
 
 import java.util.List;
 
 public interface EletricaContract {
     //POST
-    DtoEletricaResponse incluir(DtoPecaEletrica dto);
+    DtoEletricaResponse incluir(DtoEletricaRequest dto);
     //PUT
-    void update( long id, DtoPecaEletrica dto);
+    void update( long id, DtoEletricaRequest dto);
     //DELETE
     void delete(long id);
     //GET

@@ -1,7 +1,7 @@
 package org.acme.services;
 
 
-import org.acme.dto.DtoOficina;
+import org.acme.dto.DtoOficinaRequest;
 import org.acme.dto.DtoOficinaNome;
 import org.acme.dto.DtoOficinaResponse;
 
@@ -10,9 +10,9 @@ import java.util.List;
 public interface OficinaContract {
 
     //POST
-    DtoOficinaResponse incluir(DtoOficina dto);
+    DtoOficinaResponse incluir(DtoOficinaRequest dto);
     //PUT
-    void update( Long id, DtoOficina dto);
+    void update( Long id, DtoOficinaRequest dto);
     //DELETE
     void delete(Long id);
     //GET

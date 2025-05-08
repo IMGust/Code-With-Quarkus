@@ -1,6 +1,6 @@
 package org.acme.resource;
 
-import org.acme.dto.DtoPecaEletrica;
+import org.acme.dto.DtoEletricaRequest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -20,7 +20,7 @@ public class PecaEletricaResource {
 
     @POST
     @Transactional
-    public Response incluir(DtoPecaEletrica dto) {
+    public Response incluir(DtoEletricaRequest dto) {
        return Response.status(Response.Status.CREATED).entity(service.incluir(dto)).build();
     }
 
@@ -28,7 +28,7 @@ public class PecaEletricaResource {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response update( long id, DtoPecaEletrica dto){
+    public Response update( long id, DtoEletricaRequest dto){
         service.update(id, dto);
         return Response.noContent().build();
     }

@@ -1,6 +1,6 @@
 package org.acme.resource;
 
-import org.acme.dto.DtoRequestMotor;
+import org.acme.dto.DtoMotorRequest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -19,14 +19,14 @@ public class MotorResource {
 
     @POST
     @Transactional
-    public Response incluir(DtoRequestMotor dto) {
+    public Response incluir(DtoMotorRequest dto) {
         return Response.status(Response.Status.CREATED).entity(service.incluir(dto)).build();
     }
 
     @PUT
     @Path("{id}")
     @Transactional
-    public Response update(long id, DtoRequestMotor dto) {
+    public Response update(long id, DtoMotorRequest dto) {
         service.update(id, dto);
         return Response.noContent().build();
     }

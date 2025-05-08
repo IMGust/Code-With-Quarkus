@@ -4,7 +4,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.acme.dto.DtoEletricaResponse;
-import org.acme.dto.DtoPecaEletrica;
+import org.acme.dto.DtoEletricaRequest;
 import org.acme.services.EletricaServiceImpl;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
@@ -22,7 +22,7 @@ public class PecaEletricaResourceTest {
 
     @Test
     void testIncluir() {
-        DtoPecaEletrica peca = new DtoPecaEletrica(
+        DtoEletricaRequest peca = new DtoEletricaRequest(
                 "bosh",
                 "capacitor",
                 "120V",
@@ -48,7 +48,7 @@ public class PecaEletricaResourceTest {
     @Test
     void testBuscarNome() {
 
-        DtoPecaEletrica peca = new DtoPecaEletrica("bosh", "capacitor", "120V", 12);
+        DtoEletricaRequest peca = new DtoEletricaRequest("bosh", "capacitor", "120V", 12);
         Long id = service.incluir(peca).id();
 
         String nomeBusca = "capacitor";
@@ -67,17 +67,17 @@ public class PecaEletricaResourceTest {
 
     @Test
     void testAlterar() {
-        DtoPecaEletrica eletrica = new DtoPecaEletrica(
+        DtoEletricaRequest eletrica = new DtoEletricaRequest(
                 "bosh",
-                "capacitor",
+                "modulo_injeção",
                 "120V",
                 12);
 
         id =  service.incluir(eletrica).id();
 
-        DtoPecaEletrica eletricaAlterado = new DtoPecaEletrica(
-                "brammer",
-                "capacitor",
+        DtoEletricaRequest eletricaAlterado = new DtoEletricaRequest(
+                "Delphi Technologies",
+                "central_eletronica",
                 "100V",
                 10);
 
@@ -88,8 +88,8 @@ public class PecaEletricaResourceTest {
                 .then()
                 .statusCode(204);
         DtoEletricaResponse response = service.findById(id);
-        assertThat(response.nome(), is("capacitor"));
-        assertThat(response.marca(), is("brammer"));
+        assertThat(response.nome(), is("central_eletronica"));
+        assertThat(response.marca(), is("Delphi Technologies"));
         assertThat(response.voltagem(),is("100V"));
         assertThat(response.estoque(), is(10));
     }
@@ -97,7 +97,7 @@ public class PecaEletricaResourceTest {
     @Test
     void testDelete() {
 
-        DtoPecaEletrica eletrica = new DtoPecaEletrica("marcaTeste", "capacitor_lixo", "120V", 10);
+        DtoEletricaRequest eletrica = new DtoEletricaRequest("marcaTeste", "capacitor_lixo", "120V", 10);
         Long idCriado = service.incluir(eletrica).id();
 
 

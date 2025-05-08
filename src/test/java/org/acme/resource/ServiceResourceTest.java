@@ -3,7 +3,7 @@ package org.acme.resource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import org.acme.dto.DtoRequestServico;
+import org.acme.dto.DtoServicoRequest;
 import org.acme.dto.DtoServicoResponse;
 import org.acme.services.ServicoServiceImpl;
 import org.hamcrest.MatcherAssert;
@@ -21,7 +21,7 @@ public class ServiceResourceTest {
 
     @Test
     void testIncluir() {
-        DtoRequestServico servico = new DtoRequestServico(
+        DtoServicoRequest servico = new DtoServicoRequest(
                 "lava_jato");
 
         given()
@@ -40,12 +40,12 @@ public class ServiceResourceTest {
 
     @Test
     void testAlterar() {
-        DtoRequestServico servico = new DtoRequestServico(
+        DtoServicoRequest servico = new DtoServicoRequest(
                 "lava_jato");
 
         id =  service.incluir(servico).id();
 
-       DtoRequestServico servicoAlterado = new DtoRequestServico(
+       DtoServicoRequest servicoAlterado = new DtoServicoRequest(
                 "pintura");
 
         given()
@@ -61,7 +61,7 @@ public class ServiceResourceTest {
     @Test
     void testDelete() {
 
-        DtoRequestServico servico = new DtoRequestServico("servico_teste");
+        DtoServicoRequest servico = new DtoServicoRequest("servico_teste");
         Long idCriado = service.incluir(servico).id();
 
         given()

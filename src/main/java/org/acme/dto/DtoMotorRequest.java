@@ -3,7 +3,7 @@ package org.acme.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record DtoRequestMotor(
+public record DtoMotorRequest(
         @NotBlank(message = "O nome deve ser informado")
         String nome,
 

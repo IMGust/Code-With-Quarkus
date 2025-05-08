@@ -1,6 +1,6 @@
 package org.acme.resource;
 
-import org.acme.dto.DtoRequestServico;
+import org.acme.dto.DtoServicoRequest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -19,7 +19,7 @@ public class ServicoResource {
 
     @POST
     @Transactional
-    public Response incluir(DtoRequestServico dto) {
+    public Response incluir(DtoServicoRequest dto) {
         return Response.status(Response.Status.CREATED).entity(service.incluir(dto)).build();
     }
 
@@ -27,7 +27,7 @@ public class ServicoResource {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response update( long id, DtoRequestServico dto){
+    public Response update( long id, DtoServicoRequest dto){
         service.update(id, dto);
         return Response.noContent().build();
     }

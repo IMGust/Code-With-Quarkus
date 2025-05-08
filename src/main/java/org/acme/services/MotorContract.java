@@ -1,24 +1,24 @@
 package org.acme.services;
 
-import org.acme.dto.DtoRequestMotor;
-import org.acme.dto.DtoResponseMotor;
+import org.acme.dto.DtoMotorRequest;
+import org.acme.dto.DtoMotorResponse;
 import java.util.List;
 
 public interface MotorContract {
     //POST
-     DtoResponseMotor incluir(DtoRequestMotor dto);
+     DtoMotorResponse incluir(DtoMotorRequest dto);
     //PUT
-     void update( long id, DtoRequestMotor dto);
+     void update( long id, DtoMotorRequest dto);
     //DELETE
      void delete(long id);
     //GET
-     List<DtoResponseMotor> exibirTodos();
+     List<DtoMotorResponse> exibirTodos();
     //GET adicional
-     List<DtoResponseMotor> buscarNome(String nome);
+     List<DtoMotorResponse> buscarNome(String nome);
     //GET adicional
-    List<DtoResponseMotor> buscarCarro(Long idCarro);
+    List<DtoMotorResponse> buscarCarro(Long idCarro);
 
-    DtoResponseMotor findById(long id);
+    DtoMotorResponse findById(long id);
 
 
 

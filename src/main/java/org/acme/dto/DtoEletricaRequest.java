@@ -3,17 +3,14 @@ package org.acme.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record DtoCarroRequest(
+public record DtoEletricaRequest(
+        @NotBlank(message = "O nome deve ser informado.")
+        String marca,
         @NotBlank(message = "O nome deve ser informado.")
         String nome,
-
         @NotBlank(message = "O nome deve ser informado.")
-        String classificacao ,
-
-        @NotBlank(message = "O nome deve ser informado.")
-        Integer idTipoMotor,
-
-        @NotBlank(message = "O nome deve ser informado.")
-        Long chassiId
+        String voltagem,
+        @NotNull
+        int estoque
 ) {
 }

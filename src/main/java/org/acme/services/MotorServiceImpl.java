@@ -3,8 +3,8 @@ package org.acme.services;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.acme.dto.DtoRequestMotor;
-import org.acme.dto.DtoResponseMotor;
+import org.acme.dto.DtoMotorRequest;
+import org.acme.dto.DtoMotorResponse;
 import jakarta.transaction.Transactional;
 import org.acme.model.Carro;
 import org.acme.model.Motor;
@@ -21,7 +21,7 @@ public class MotorServiceImpl implements MotorContract {
 
     @Override
     @Transactional
-     public DtoResponseMotor incluir(DtoRequestMotor dto){
+     public DtoMotorResponse incluir(DtoMotorRequest dto){
         Motor motor = new Motor();
         motor.setNome(dto.nome());
         motor.setPreco(dto.preco());
@@ -33,12 +33,12 @@ public class MotorServiceImpl implements MotorContract {
         //pesistência
 
         repository.persist(motor);
-        return DtoResponseMotor.valueof(motor);
+        return DtoMotorResponse.valueof(motor);
     }
 
     @Override
     @Transactional
-    public void update(long id, DtoRequestMotor dto){
+    public void update(long id, DtoMotorRequest dto){
         Motor motor = repository.findById(id);
         motor.setNome(dto.nome());
         motor.setPreco(dto.preco());
@@ -55,25 +55,25 @@ public class MotorServiceImpl implements MotorContract {
 
     }
     @Override
-    public List<DtoResponseMotor> exibirTodos(){
-        return repository.findAll().stream().map(e -> DtoResponseMotor.valueof(e)).toList();
+    public List<DtoMotorResponse> exibirTodos(){
+        return repository.findAll().stream().map(e -> DtoMotorResponse.valueof(e)).toList();
     }
 
     @Override
-    public List<DtoResponseMotor> buscarNome(String nome){
-    return repository.findByName(nome).stream().map(e -> DtoResponseMotor.valueof(e)).toList();
+    public List<DtoMotorResponse> buscarNome(String nome){
+    return repository.findByName(nome).stream().map(e -> DtoMotorResponse.valueof(e)).toList();
     }
 
     @Override
-    public DtoResponseMotor findById(long id) {
-        return DtoResponseMotor.valueof(repository.findById(id));
+    public DtoMotorResponse findById(long id) {
+        return DtoMotorResponse.valueof(repository.findById(id));
     }
 
 
 
     @Override
-    public List<DtoResponseMotor> buscarCarro(Long idCarro){
-        return repository.findByCar(idCarro).stream().map(e -> DtoResponseMotor.valueof(e)).toList();
+    public List<DtoMotorResponse> buscarCarro(Long idCarro){
+        return repository.findByCar(idCarro).stream().map(e -> DtoMotorResponse.valueof(e)).toList();
     }
 
 

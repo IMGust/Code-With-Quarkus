@@ -1,7 +1,7 @@
 package org.acme.services;
 
 
-import org.acme.dto.DtoRequestServico;
+import org.acme.dto.DtoServicoRequest;
 import org.acme.dto.DtoServicoResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -22,7 +22,7 @@ public class ServicoServiceImpl implements ServicoContract {
 
     @Override
     @Transactional
-    public DtoServicoResponse incluir(DtoRequestServico dto) {
+    public DtoServicoResponse incluir(DtoServicoRequest dto) {
         Servico servico = new Servico();
         servico.setNome(dto.nome());
 
@@ -33,7 +33,7 @@ public class ServicoServiceImpl implements ServicoContract {
 
     @Override
     @Transactional
-    public void update(long id, DtoRequestServico dto) {
+    public void update(long id, DtoServicoRequest dto) {
         Servico servico = repository.findById(id);
         if(servico == null) {
             throw new RuntimeException("Serviço não encontrado");

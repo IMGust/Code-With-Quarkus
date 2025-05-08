@@ -1,5 +1,5 @@
 package org.acme.services;
-import org.acme.dto.DtoPecaEletrica;
+import org.acme.dto.DtoEletricaRequest;
 import org.acme.dto.DtoEletricaResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -18,7 +18,7 @@ public class EletricaServiceImpl implements EletricaContract {
 
     @Override
     @Transactional
-    public DtoEletricaResponse incluir(DtoPecaEletrica dto){
+    public DtoEletricaResponse incluir(DtoEletricaRequest dto){
         PecaEletrica eletrica = new PecaEletrica();
         eletrica.setMarca(dto.marca());
         eletrica.setVoltagem(dto.voltagem());
@@ -32,7 +32,7 @@ public class EletricaServiceImpl implements EletricaContract {
 
     @Override
     @Transactional
-    public void update(long id, DtoPecaEletrica dto){
+    public void update(long id, DtoEletricaRequest dto){
         PecaEletrica eletrica = repository.findById( id);
         eletrica.setNome(dto.nome());
         eletrica.setEstoque(dto.estoque());

@@ -5,7 +5,6 @@ import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.acme.dto.DtoChassiRequest;
 import org.acme.dto.DtoChassiResponse;
-import org.acme.dto.DtoPecaEletrica;
 import org.acme.services.ChassiServiceImpl;
 import org.junit.jupiter.api.Test;
 

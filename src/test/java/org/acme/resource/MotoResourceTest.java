@@ -3,8 +3,8 @@ package org.acme.resource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
-import org.acme.dto.DtoRequestMotor;
-import org.acme.dto.DtoResponseMotor;
+import org.acme.dto.DtoMotorRequest;
+import org.acme.dto.DtoMotorResponse;
 import org.acme.services.MotorServiceImpl;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
@@ -22,7 +22,7 @@ public class MotoResourceTest {
 
     @Test
     void testIncluir() {
-        DtoRequestMotor motor  = new DtoRequestMotor(
+        DtoMotorRequest motor  = new DtoMotorRequest(
                 "V8_BOSS469",
                 122.510,
                 1l);
@@ -44,7 +44,7 @@ public class MotoResourceTest {
     @Test
     void testBuscarNome() {
 
-        DtoRequestMotor motor = new DtoRequestMotor("V8_BOSS469", 122.510f, 1l);
+        DtoMotorRequest motor = new DtoMotorRequest("V8_BOSS469", 122.510f, 1l);
         Long id = service.incluir(motor).id();
 
         String nomeBusca = "V8_BOSS469";
@@ -62,7 +62,7 @@ public class MotoResourceTest {
 
     @Test
     void testAlterar() {
-        DtoRequestMotor motorInicial = new DtoRequestMotor(
+        DtoMotorRequest motorInicial = new DtoMotorRequest(
                 "V8_BOSS469_Temp",
                 151.210,
                 1L);
@@ -72,7 +72,7 @@ public class MotoResourceTest {
         assertNotNull(id, "ID do motor não deveria ser nulo após inclusão inicial");
 
         // --- Dados para Alteração ---
-        DtoRequestMotor motorAlterado = new DtoRequestMotor(
+        DtoMotorRequest motorAlterado = new DtoMotorRequest(
                 "V6_BOSS420",
                 101.100,
                 1l);
@@ -87,7 +87,7 @@ public class MotoResourceTest {
                 .statusCode(204);
 
 
-        DtoResponseMotor response = service.findById(id);
+        DtoMotorResponse response = service.findById(id);
         assertNotNull(response, "A resposta do findById não deveria ser nula");
 
 
@@ -103,7 +103,7 @@ public class MotoResourceTest {
     @Test
     void testDelete() {
 
-        DtoRequestMotor motor = new DtoRequestMotor("V_teste", 120.000,  1l);
+        DtoMotorRequest motor = new DtoMotorRequest("V_teste", 120.000,  1l);
         Long idCriado = service.incluir(motor).id();
 
         given()
@@ -111,7 +111,7 @@ public class MotoResourceTest {
                 .then()
                 .statusCode(204);
 
-        DtoResponseMotor response = service.findById(idCriado);
+        DtoMotorResponse response = service.findById(idCriado);
         assertNull(response);
     }
 

@@ -1,23 +1,45 @@
 @startuml
 class Motor{
-- nome: String
-- preco: int
+    - nome: String
+    - preco: double
+    - carro: Carro
 }
 
 class Carro{
-- nome: String
+    - nome: String
 }
 
 
 enum TipoMotor {
-- MOTOR_CAMINHAO: int
-- MOTOR_MOTO: int
-- MOTOR_GT: int
+    - MOTOR_CAMINHAO: int
+    - MOTOR_MOTO: int
+    - MOTOR_GT: int
 }
 
+class Peca{
+    - nome: String
+    - estoque: int
+}
+
+class PecaEletrica extends Peca{
+    -marca: String
+    -voltagem: String
+}
+class Chassi{
+    -numero: String
+}
+
+class Servico{
+    -nome: String
+}
+
+class Oficina{
+    -nome: String
+    -endereco: String
+}
 'relacionamentos'
 Motor "*" --> "1" Carro
 Carro "1" --> "1" TipoMotor
-
-
+Oficina "*" --> "*"Servico
+Chassi "1" --> "1" Carro
 @enduml

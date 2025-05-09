@@ -1,11 +1,13 @@
 package org.acme.resource;
 
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.acme.dto.DtoMotorRequest;
 import org.acme.dto.DtoMotorResponse;
 import org.acme.services.MotorServiceImpl;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
@@ -38,7 +40,7 @@ public class MotoResourceTest {
                         "id", notNullValue(),
                         "nome", is("V8_BOSS469"),
                         "preco", is(122.510f),
-                        "carro.id", is(nullValue())
+                        "carro.id", is(notNullValue())
                 );
     }
     @Test
@@ -71,13 +73,13 @@ public class MotoResourceTest {
         id = service.incluir(motorInicial).id();
         assertNotNull(id, "ID do motor não deveria ser nulo após inclusão inicial");
 
-        // --- Dados para Alteração ---
+
         DtoMotorRequest motorAlterado = new DtoMotorRequest(
                 "V6_BOSS420",
                 101.100,
                 1l);
 
-        // --- Ação: Chama a API PUT ---
+
         given()
                 .contentType(ContentType.JSON)
                 .body(motorAlterado)
@@ -95,9 +97,8 @@ public class MotoResourceTest {
 
         assertThat(response.preco(), is(closeTo(101.100, 0.001)));
 
-        assertThat(response.carro(), is(nullValue()));
+        assertThat(response.carro(), is(notNullValue()));
     }
-
 
 
     @Test

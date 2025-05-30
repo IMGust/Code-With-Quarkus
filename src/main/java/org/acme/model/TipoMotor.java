@@ -1,6 +1,4 @@
 package org.acme.model;
-
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @JsonFormat (shape = JsonFormat.Shape.OBJECT)
@@ -25,7 +23,6 @@ public enum TipoMotor {
         public int getID() {
         return ID;
         }
-
 
         public static TipoMotor valueof(Integer id){
             if(id == null) return null;

@@ -17,14 +17,14 @@ public class Usuario extends DefaultEntity{
 
     @OneToOne
     @JoinColumn(name = "id_pessoafisica", unique = true)
-    private PessoaFisica pessoa;
+    private PessoaFisica pessoaFisica;
 
-    public PessoaFisica getPessoa() {
-        return pessoa;
+    public PessoaFisica getPessoaFisica() {
+        return pessoaFisica;
     }
 
-    public void setPessoa(PessoaFisica pessoa) {
-        this.pessoa = pessoa;
+    public void setPessoaFisica(PessoaFisica pessoaFisica) {
+        this.pessoaFisica = pessoaFisica;
     }
 
     public String getUsername() {

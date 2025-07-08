@@ -1,5 +1,6 @@
 package org.acme.services;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.acme.dto.DtoPessoaFisica;
@@ -8,6 +9,7 @@ import org.acme.model.PessoaFisica;
 import org.acme.repository.PessoaFisicaRepository;
 import java.util.List;
 
+@ApplicationScoped
 public class PessoaFisicaServiceImpl implements PessoaFisicaService{
     @Inject
     PessoaFisicaRepository pessoafisicaRepository;
